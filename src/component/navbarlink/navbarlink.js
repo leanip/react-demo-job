@@ -1,0 +1,38 @@
+import React from 'react'
+import { TabBar } from 'antd-mobile'
+import { withRouter } from 'react-router-dom'
+
+@withRouter
+class NavBarLink extends React.Component{
+
+  constructor (props) {
+    super(props)
+    this.state = {
+      icon: ''
+    }
+  }
+  
+
+  render(){
+    const navList = this.props.data.filter(v => !v.hide)
+    const { pathname } = this.props.location
+    return (
+      <TabBar>
+        {navList.map(v => (
+          <TabBar.Item
+            key={v.icon}
+            title={v.text}
+            icon={{uri: require(`./img/${v.icon}.png`)}}
+            selectedIcon={{uri: require(`./img/${v.icon}-active.png`)}}
+            selected = { pathname === v.path }
+            onPress={() => {
+              this.props.history.push(v.path)
+            }}
+          />
+        ))}
+      </TabBar>
+    )
+  }
+}
+
+export default NavBarLink

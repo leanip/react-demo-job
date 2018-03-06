@@ -3,17 +3,21 @@ import axios from 'axios'
 import { getRedirectPath } from '../util'
 
 const AUTH_SUCCESS = 'AUTH_SUCCESS'
+const LOAD_DATA = 'LOAD_DATA'
 const ERROR_MSG = 'ERROR_MSG'
 
 const initState = {
   msg: '',
-  redirectTo: ''
+  redirectTo: '',
+  user: ''
 }
 
 export const user = (state = initState, action) => {
   switch (action.type) {
     case AUTH_SUCCESS:
       return { ...state, ...action.payload, redirectTo: getRedirectPath(action.payload) }
+    case LOAD_DATA:
+      return { ...state, ...action.payload }
     case ERROR_MSG:
       return { ...state, msg: action.msg }
     default:
@@ -24,7 +28,9 @@ export const user = (state = initState, action) => {
 const errorMsg = msg => ({ msg, type: ERROR_MSG })
 const authSuccess = data => ({ type: AUTH_SUCCESS, payload: data })
 
-export const loadData = data => ({ type: AUTH_SUCCESS, payload: data })
+export const loadData = data => {
+  return { type: LOAD_DATA, payload: data }
+}
 
 export const login = ({ user, pwd }) => {
   if (!user || !pwd) {

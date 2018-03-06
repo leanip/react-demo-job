@@ -43,7 +43,6 @@ Router.get('/info', (req, res) => {
 
 Router.post('/login', (req, res) => {
   const { user, pwd } = req.body
-  console.log(user, pwd)
   User.findOne({ user, pwd: md5Pwd(pwd) }, _filter, (err, doc) => {
     if (err) {
       return res.json({ code: 1, msg: '服务器出错了' })
@@ -79,7 +78,6 @@ Router.post('/update', (req, res) => {
 
 Router.post('/register', (req, res) => {
   const { user, pwd, type } = req.body
-  console.log(req.body)
   User.findOne({ user }, (err, doc) => {
     if (err) {
       return res.json({ code: 1, msg: '服务器出错了' })

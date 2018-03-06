@@ -5,3 +5,19 @@
 img {
     vertical-align: middle
 }
+
+.am-tab-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.fix-header.am-navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.page-content {
+    padding: 45px 5px;
+}
