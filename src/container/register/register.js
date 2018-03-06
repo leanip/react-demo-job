@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { WingBlank, WhiteSpace, List, InputItem, Button, Radio } from 'antd-mobile'
 
 import Logo from '../../component/logo/logo'
@@ -9,8 +10,8 @@ import { register } from '../../redux/user.redux'
   state => state.user,
   { register }
 )
-class Register extends React.Component{
-  constructor(props){
+class Register extends React.Component {
+  constructor(props) {
     super(props)
     this.state = {
       user: '',
@@ -21,21 +22,23 @@ class Register extends React.Component{
     this.handleRegister = this.handleRegister.bind(this)
   }
 
-  handleChange(key, val){
+  handleChange(key, val) {
     this.setState({
       [key]: val
     })
   }
 
-  handleRegister(){
+  handleRegister() {
     this.props.register(this.state)
   }
 
-  render(){
+  render() {
+    const redirectTo = this.props.redirectTo
     const RadioItem = Radio.RadioItem
     return (
       <WingBlank>
-        <Logo/>
+        {redirectTo ? <Redirect to={redirectTo} /> : null}
+        <Logo />
         {this.props.msg ? <p className='error-msg'>{this.props.msg}</p> : null}
         <List>
           <InputItem
@@ -48,7 +51,7 @@ class Register extends React.Component{
             onChange={v => this.handleChange('pwd2', v)}
           >确认密码</InputItem>
         </List>
-        <WhiteSpace/>
+        <WhiteSpace />
         <List>
           <RadioItem
             checked={this.state.type === 'genius'}
@@ -59,7 +62,7 @@ class Register extends React.Component{
             onChange={v => this.handleChange('type', 'boss')}
           >Boss</RadioItem>
         </List>
-        <WhiteSpace size='lg'/>
+        <WhiteSpace size='lg' />
         <Button type='primary' onClick={this.handleRegister}>注册</Button>
       </WingBlank>
     )

@@ -5,8 +5,11 @@ import { Provider } from 'react-redux'
 import { BrowserRouter, Route } from 'react-router-dom'
 import { createStore, compose, applyMiddleware } from 'redux'
 
+import AuthRoute from './component/authroute/authroute'
 import Login from './container/login/login'
 import Register from './container/register/register'
+import BossInfo from './container/bossinfo/bossinfo'
+import GeniusInfo from './container/geniusinfo/geniusinfo'
 import reducer from './reducer'
 
 import './index.css'
@@ -22,8 +25,12 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <div>
+        <AuthRoute />
+        <Route path='/' exact component={Login} />
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />
+        <Route path='/bossinfo' component={BossInfo} />
+        <Route path='/geniusinfo' component={GeniusInfo} />
       </div>
     </BrowserRouter>
   </Provider>,
