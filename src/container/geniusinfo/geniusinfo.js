@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { NavBar, List, InputItem, TextareaItem, WhiteSpace, Button } from 'antd-mobile'
 
-import SelectAvatar from '../../component/select-avatar/select-avatar'
+import AvatarSelecter from '../../component/avatar-selecter/avatar-selecter'
 import { update } from '../../redux/user.redux'
 
 @connect(
@@ -39,7 +39,7 @@ class GeniusInfo extends React.Component {
       <div>
         {redirectTo ? <Redirect to={redirectTo} /> : null}
         <NavBar>Boss完善信息页</NavBar>
-        <SelectAvatar selectAvatar={v => this.handleChange('avatar', v)} />
+        <AvatarSelecter selectAvatar={v => this.handleChange('avatar', v)} />
         <WhiteSpace />
         <List>
           <InputItem

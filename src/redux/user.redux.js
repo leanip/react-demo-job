@@ -7,15 +7,20 @@ const LOAD_DATA = 'LOAD_DATA'
 const ERROR_MSG = 'ERROR_MSG'
 
 const initState = {
+  user: '',
   msg: '',
-  redirectTo: '',
-  user: ''
+  redirectTo: ''
 }
 
 export const user = (state = initState, action) => {
   switch (action.type) {
     case AUTH_SUCCESS:
-      return { ...state, ...action.payload, redirectTo: getRedirectPath(action.payload) }
+      return {
+        ...state,
+        ...action.payload,
+        msg: '',
+        redirectTo: getRedirectPath(action.payload)
+      }
     case LOAD_DATA:
       return { ...state, ...action.payload }
     case ERROR_MSG:
@@ -25,19 +30,21 @@ export const user = (state = initState, action) => {
   }
 }
 
-const errorMsg = msg => ({ msg, type: ERROR_MSG })
-const authSuccess = data => ({ type: AUTH_SUCCESS, payload: data })
-
-export const loadData = data => {
-  return { type: LOAD_DATA, payload: data }
+const authSuccess = data => {
+  return { type: AUTH_SUCCESS, payload: data }
 }
 
-export const login = ({ user, pwd }) => {
-  if (!user || !pwd) {
-    return errorMsg('用户名和密码不能为空')
-  }
+const errorMsg = msg => {
+  return { msg, type: ERROR_MSG }
+}
+
+export const loadData = userinfo => {
+  return { type: LOAD_DATA, payload: userinfo }
+}
+
+export const update = data => {
   return dispatch => {
-    axios.post('/user/login', { user, pwd })
+    axios.post('/user/update', data)
       .then(res => {
         if (res.status === 200 && res.data.code === 0) {
           dispatch(authSuccess(res.data.data))
@@ -48,9 +55,13 @@ export const login = ({ user, pwd }) => {
   }
 }
 
-export const update = data => {
+export const login = ({ user, pwd }) => {
+  if (!user || !pwd) {
+    return errorMsg('用户名和密码不能为空')
+  }
+
   return dispatch => {
-    axios.post('/user/update', data)
+    axios.post('/user/login', { user, pwd })
       .then(res => {
         if (res.status === 200 && res.data.code === 0) {
           dispatch(authSuccess(res.data.data))
@@ -72,7 +83,6 @@ export const register = ({ user, pwd, pwd2, type }) => {
   return dispatch => {
     axios.post('/user/register', { user, pwd, type })
       .then(res => {
-        console.log(res.data)
         if (res.status === 200 && res.data.code === 0) {
           dispatch(authSuccess(res.data.data))
         } else {

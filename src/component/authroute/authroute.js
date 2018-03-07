@@ -7,7 +7,7 @@ import { loadData } from '../../redux/user.redux'
 
 @withRouter
 @connect(
-  state => state,
+  null,
   { loadData }
 )
 class AuthRoute extends React.Component {
@@ -16,7 +16,7 @@ class AuthRoute extends React.Component {
     axios.get('/user/info')
       .then(res => {
         if (res.status === 200 && res.data.code === 0) {
-          console.log('auth ok')
+          console.log('auth ok & load data', res.data.data)
           loadData(res.data.data)
         } else {
           console.log('auth failed')

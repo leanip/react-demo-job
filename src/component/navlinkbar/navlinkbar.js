@@ -3,17 +3,17 @@ import { TabBar } from 'antd-mobile'
 import { withRouter } from 'react-router-dom'
 
 @withRouter
-class NavBarLink extends React.Component{
+class NavLinkBar extends React.Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       icon: ''
     }
   }
-  
 
-  render(){
+
+  render() {
     const navList = this.props.data.filter(v => !v.hide)
     const { pathname } = this.props.location
     return (
@@ -22,9 +22,9 @@ class NavBarLink extends React.Component{
           <TabBar.Item
             key={v.icon}
             title={v.text}
-            icon={{uri: require(`./img/${v.icon}.png`)}}
-            selectedIcon={{uri: require(`./img/${v.icon}-active.png`)}}
-            selected = { pathname === v.path }
+            icon={{ uri: require(`./img/${v.icon}.png`) }}
+            selectedIcon={{ uri: require(`./img/${v.icon}-active.png`) }}
+            selected={pathname === v.path}
             onPress={() => {
               this.props.history.push(v.path)
             }}
@@ -35,4 +35,4 @@ class NavBarLink extends React.Component{
   }
 }
 
-export default NavBarLink
+export default NavLinkBar

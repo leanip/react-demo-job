@@ -11,13 +11,14 @@ import { register } from '../../redux/user.redux'
   { register }
 )
 class Register extends React.Component {
+
   constructor(props) {
     super(props)
     this.state = {
+      type: 'genius',
       user: '',
       pwd: '',
-      pwd2: '',
-      type: 'genius'
+      pwd2: ''
     }
     this.handleRegister = this.handleRegister.bind(this)
   }
