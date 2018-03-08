@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
 
 import NavLinkBar from '../navlinkbar/navlinkbar'
+import Boss from '../boss/boss'
+import Genius from '../genius/genius'
 
-const Genius = () => <h2>Boss列表</h2>
-const Boss = () => <h2>牛人列表</h2>
 const Msg = () => <h2>消息列表</h2>
 const User = () => <h2>个人中心</h2>
 
@@ -15,7 +15,6 @@ const User = () => <h2>个人中心</h2>
 )
 class Dashboard extends React.Component {
   render() {
-    console.log(this.props)
     const { user } = this.props
     const { pathname } = this.props.location
     const navList = [

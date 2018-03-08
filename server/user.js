@@ -14,7 +14,9 @@ const md5Pwd = pwd => {
 
 Router.get('/list', (req, res) => {
   // User.remove({}, () => res.json('remove all'))
-  User.find({}, (err, doc) => {
+  const { query } = req
+  const condition = query ? query : {}
+  User.find(condition, _filter, (err, doc) => {
     if (err) {
       return res.json({ code: 1, msg: '服务器出错了' })
     }
@@ -28,13 +30,14 @@ Router.get('/info', (req, res) => {
   if (!userid) {
     return res.json({ code: 1, msg: 'cookie不存在或已过期，请重新登录' })
   }
-
+console.log('userid',userid)
   User.findOne({ _id: userid }, _filter, (err, doc) => {
     if (err) {
       return res.json({ code: 1, msg: '服务器出错了' })
     }
     if (doc) {
-      res.cookie('userid', userid)
+      console.log(doc._id)
+      res.cookie('userid', doc._id)
       return res.json({ code: 0, data: doc })
     }
     return res.json({ code: 1, msg: '用户ID错误，请重新登录' })
