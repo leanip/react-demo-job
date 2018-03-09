@@ -13,7 +13,7 @@ const md5Pwd = pwd => {
 }
 
 Router.get('/list', (req, res) => {
-  // User.remove({}, () => res.json('remove all'))
+  // User.remove({}, () => res.json('remove all')) ;return;
   const { query } = req
   const condition = query ? query : {}
   User.find(condition, _filter, (err, doc) => {

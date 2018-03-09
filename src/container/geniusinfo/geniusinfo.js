@@ -5,32 +5,21 @@ import { NavBar, List, InputItem, TextareaItem, WhiteSpace, Button } from 'antd-
 
 import AvatarSelecter from '../../component/avatar-selecter/avatar-selecter'
 import { update } from '../../redux/user.redux'
+import imoocForm from '../../component/imooc-form/imooc-form'
 
 @connect(
   state => state.user,
   { update }
 )
+@imoocForm
 class GeniusInfo extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      avatar: '',
-      title: '',
-      company: '',
-      money: '',
-      desc: ''
-    }
     this.handleUpdate = this.handleUpdate.bind(this)
   }
 
-  handleChange(key, val) {
-    this.setState({
-      [key]: val
-    })
-  }
-
   handleUpdate() {
-    this.props.update(this.state)
+    this.props.update(this.props.state)
   }
 
   render() {
@@ -40,16 +29,16 @@ class GeniusInfo extends React.Component {
       <div>
         {redirectTo && redirectTo !== pathname ? <Redirect to={redirectTo} /> : null}
         <NavBar>Boss完善信息页</NavBar>
-        <AvatarSelecter selectAvatar={v => this.handleChange('avatar', v)} />
+        <AvatarSelecter selectAvatar={v => this.props.handleChange('avatar', v)} />
         <WhiteSpace />
         <List>
           <InputItem
-            onChange={v => this.handleChange('title', v)}
+            onChange={v => this.props.handleChange('title', v)}
           >求职岗位</InputItem>
           <TextareaItem
             title='个人简介'
             rows={3}
-            onChange={v => this.handleChange('desc', v)}
+            onChange={v => this.props.handleChange('desc', v)}
             autoHeight />
         </List>
         <WhiteSpace />
