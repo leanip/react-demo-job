@@ -6,9 +6,9 @@ import { Route } from 'react-router-dom'
 import NavLinkBar from '../navlinkbar/navlinkbar'
 import Boss from '../boss/boss'
 import Genius from '../genius/genius'
+import User from '../user/user'
 
 const Msg = () => <h2>消息列表</h2>
-const User = () => <h2>个人中心</h2>
 
 @connect(
   state => state

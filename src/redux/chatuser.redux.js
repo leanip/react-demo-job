@@ -15,15 +15,12 @@ export const chatuser = (state = initState, action) => {
   }
 }
 
-const userlist = data => {
-  console.log(data)
-  return { type: USER_LIST, payload: data}
-}
+const userlist = data => ({ type: USER_LIST, payload: data })
 
 export const getUserlist = type => {
   return dispatch => {
     axios.get(`/user/list?type=${type}`).then(res => {
-      if(res.status === 200 && res.data.code === 0){
+      if (res.status === 200 && res.data.code === 0) {
         dispatch(userlist(res.data.data))
       }
     })

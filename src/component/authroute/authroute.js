@@ -15,12 +15,11 @@ class AuthRoute extends React.Component {
   componentDidMount() {
     axios.get('/user/info')
       .then(res => {
-        console.log(res.data)
         if (res.status === 200 && res.data.code === 0) {
-          console.log('auth ok & load data')
+          // console.log('auth ok & load data')
           this.props.loadData(res.data.data)
         } else {
-          console.log('auth failed')
+          // console.log('auth failed')
           this.props.history.push('/login')
         }
       })

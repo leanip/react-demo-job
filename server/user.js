@@ -8,7 +8,7 @@ const Router = express.Router()
 const _filter = { pwd: 0, __v: 0 }
 
 const md5Pwd = pwd => {
-  const salt = ')?qcBe^a`:*]G#FCN9%{kXT<g!f~6vRI>$J1/;jA4tK|dhm[&7sbL+PDOo_@5HQx'
+  const salt = 'imooc_react_6AS9zOAb1^EwVjOko*ywz1pz6n0&psyR'
   return utils.md5(utils.md5(pwd + salt))
 }
 
@@ -20,7 +20,6 @@ Router.get('/list', (req, res) => {
     if (err) {
       return res.json({ code: 1, msg: '服务器出错了' })
     }
-    res.cookie('userid', doc._id)
     return res.json({ code: 0, data: doc })
   })
 })
@@ -30,13 +29,12 @@ Router.get('/info', (req, res) => {
   if (!userid) {
     return res.json({ code: 1, msg: 'cookie不存在或已过期，请重新登录' })
   }
-console.log('userid',userid)
+
   User.findOne({ _id: userid }, _filter, (err, doc) => {
     if (err) {
       return res.json({ code: 1, msg: '服务器出错了' })
     }
     if (doc) {
-      console.log(doc._id)
       res.cookie('userid', doc._id)
       return res.json({ code: 0, data: doc })
     }
