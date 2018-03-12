@@ -22,3 +22,10 @@ img {
 .page-content {
     padding: 45px 0;
 }
+
+.stick-footer{
+    position: absolute;
+    bottom:0;
+    width: 100%;
+    z-index: 10;
+}

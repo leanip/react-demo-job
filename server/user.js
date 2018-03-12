@@ -4,6 +4,7 @@ const utils = require('utility')
 const models = require('./model')
 
 const User = models.getModel('user')
+const Chat = models.getModel('chat')
 const Router = express.Router()
 const _filter = { pwd: 0, __v: 0 }
 
@@ -11,6 +12,14 @@ const md5Pwd = pwd => {
   const salt = 'imooc_react_6AS9zOAb1^EwVjOko*ywz1pz6n0&psyR'
   return utils.md5(utils.md5(pwd + salt))
 }
+
+Router.get('/getmsglist', (req, res) => {
+  Chat.find({}, (err, doc) => {
+    if(!err){
+      return res.json({code: 0, data: doc})
+    }
+  })
+})
 
 Router.get('/list', (req, res) => {
   // User.remove({}, () => res.json('remove all')) ;return;
