@@ -1,14 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { List, InputItem } from 'antd-mobile'
+import { List, InputItem, NavBar } from 'antd-mobile'
 
-import { getMsgList,sendMsg,recvMsg } from '../../redux/chat.redux'
+import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux'
 
 @connect(
   state => state,
-  { getMsgList,sendMsg,recvMsg }
+  { getMsgList, sendMsg, recvMsg }
 )
-class Chat extends React.Component{
+class Chat extends React.Component {
 
   constructor(props) {
     super(props)
@@ -17,32 +17,40 @@ class Chat extends React.Component{
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-  
 
-  componentDidMount(){
-    this.props.getMsgList()
-    this.props.recvMsg()
-  }
-
-  handleSubmit(){
+  handleSubmit() {
     const from = this.props.user._id
     const to = this.props.match.params.user
-    const content = this.state.text
-    this.props.sendMsg({from,to,content})
-    this.setState({text: ''})
+    const msg = this.state.text
+    this.props.sendMsg({ from, to, msg })
+    this.setState({ text: '' })
   }
 
-  render(){
+  render() {
+    const user = this.props.match.params.user
+    const Item = List.Item
     return (
-      <div>
-        <h2>chat with: {this.props.match.params.user}</h2>
+      <div id='chat-page'>
+        <NavBar>{user}</NavBar>
+        <List>
+          {this.props.chat.chatmsg.map(v => {
+            return v.from === user ?
+                <Item key={v._id}>{v.content}</Item>
+              :
+                <Item
+                  key={v._id}
+                  className='chat-me'
+                  extra={'avatar'}
+                >{v.content}</Item>
+          })}
+        </List>
         <div className='stick-footer'>
           <List>
             <InputItem
               placeholder='请输入...'
               value={this.state.text}
               onChange={v => {
-                this.setState({'text': v})
+                this.setState({ 'text': v })
               }}
               extra={<span onClick={this.handleSubmit}>发送</span>}
             ></InputItem>

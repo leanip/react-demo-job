@@ -14,6 +14,7 @@ const md5Pwd = pwd => {
 }
 
 Router.get('/getmsglist', (req, res) => {
+  // Chat.remove({}, () => {})
   Chat.find({}, (err, doc) => {
     if(!err){
       return res.json({code: 0, data: doc})

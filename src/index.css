@@ -1,9 +1,6 @@
 .error-msg {
+    padding-left: 15px;
     color: #f50;
-}
-
-img {
-    vertical-align: middle
 }
 
 .am-tab-bar {
@@ -20,12 +17,21 @@ img {
 }
 
 .page-content {
-    padding: 45px 0;
+    padding: 45px 5px;
 }
 
-.stick-footer{
+#chat-page .chat-me .am-list-extra {
+    flex-basis: auto;
+}
+
+#chat-page .chat-me .am-list-content {
+    padding-right: 15px;
+    text-align: right;
+}
+
+.stick-footer {
     position: absolute;
-    bottom:0;
+    bottom: 0;
     width: 100%;
     z-index: 10;
 }
